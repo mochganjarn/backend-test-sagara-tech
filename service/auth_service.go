@@ -22,3 +22,15 @@ func JwtTokenGenerator(secret *ClientConnection, userID string) (string, error) 
 	}
 	return token, nil
 }
+
+func ValidateJWT(secret *ClientConnection, tokenString string) (bool, error) {
+	token, err := jwt.ParseWithClaims(tokenString, &jwtclient.CustomClaims{}, func(token *jwt.Token) (interface{}, error) {
+		return []byte(secret.JwtSecret.MySecret), nil
+	})
+
+	if _, ok := token.Claims.(*jwtclient.CustomClaims); ok && token.Valid {
+		return true, nil
+	} else {
+		return false, err
+	}
+}
