@@ -8,6 +8,6 @@ import (
 func Init(dependencies *service.ClientConnection) {
 	r := gin.Default()
 	api := r.Group("/api")
-	userRoute(api, dependencies)
+	authRoute(api, dependencies)
 	r.Run()
 }
