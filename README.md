@@ -15,7 +15,7 @@ cp .env.example .env
 ```
 2. Jalankan postgres database
 3. Kemudian isilah variable env sesuai dengan environment kamu
-    Lalu jalankan perintah berikut pada terminal kamu di direktori aplikasi
+- Lalu jalankan perintah berikut pada terminal kamu di direktori aplikasi
 1. untuk mengintall dependensi aplikasi
 ```
 make install
