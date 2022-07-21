@@ -7,19 +7,21 @@ import (
 	"gorm.io/gorm"
 )
 
-type User struct {
+type Product struct {
 	ID        uint `gorm:"primaryKey"`
-	Username  string
-	Password  string
+	Name      string
+	Price     int
+	Stock     int
+	Filename  string
 	CreatedAt time.Time
 	UpdatedAt time.Time
 	DeletedAt gorm.DeletedAt `gorm:"index"`
 }
 
-func (u *User) create(dbconn *db.Client) error {
+func (p *Product) create(dbconn *db.Client) error {
 	db := dbconn.DbConnection
-	db.AutoMigrate(u)
-	result := db.Create(u)
+	db.AutoMigrate(p)
+	result := db.Create(p)
 
 	if result.RowsAffected > 0 {
 		return nil

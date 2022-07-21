@@ -9,7 +9,7 @@ type JWTClient interface {
 }
 
 type CustomClaims struct {
-	UserID string
+	UserID uint
 	jwt.StandardClaims
 }
 

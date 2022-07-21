@@ -9,5 +9,6 @@ func Init(dependencies *service.ClientConnection) {
 	r := gin.Default()
 	api := r.Group("/api")
 	authRoute(api, dependencies)
+	productRoute(api, dependencies)
 	r.Run()
 }
