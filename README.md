@@ -1,10 +1,10 @@
 # Dependensi Aplikasi
 
-Go 1.17
-Gin Gonic (Golang Web Framework)[Kunjungi](https://gin-gonic.com/).
-GORM (ORM Library for golang)[Kunjungi](https://gorm.io/index.html).
-Postgres
-golang-jwt [Kunjungi](https://github.com/golang-jwt/jwt)
+- Go 1.17
+- Gin Gonic (Golang Web Framework)[Kunjungi](https://gin-gonic.com/).
+- GORM (ORM Library for golang)[Kunjungi](https://gorm.io/index.html).
+- Postgres
+- golang-jwt [Kunjungi](https://github.com/golang-jwt/jwt)
 
 # Memulai
 ###### Instalasi
