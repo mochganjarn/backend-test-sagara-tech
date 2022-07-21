@@ -6,6 +6,7 @@ require (
 	cloud.google.com/go/storage v1.18.2
 	github.com/gin-gonic/gin v1.7.4
 	github.com/golang-jwt/jwt v3.2.2+incompatible
+	github.com/google/uuid v1.1.2
 	github.com/joho/godotenv v1.4.0
 	golang.org/x/crypto v0.0.0-20210921155107-089bfa567519
 	google.golang.org/api v0.58.0

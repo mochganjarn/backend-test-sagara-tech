@@ -11,6 +11,8 @@ import (
 
 func Login(appDependencies *service.ClientConnection) gin.HandlerFunc {
 	return func(c *gin.Context) {
+
+		db := appDependencies.DbClient.DbConnection
 		var reqBody request.Login
 		if err := c.ShouldBindJSON(&reqBody); err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -22,31 +24,33 @@ func Login(appDependencies *service.ClientConnection) gin.HandlerFunc {
 			Username: reqBody.Username,
 		}
 
-		if err := model.ShowData(&user, appDependencies.DbClient); err != nil {
-			c.PureJSON(404, gin.H{
+		db.AutoMigrate(&user)
+		result := db.Where(&user).First(&user)
+
+		if result.RowsAffected == 0 {
+			c.PureJSON(http.StatusNotFound, gin.H{
 				"Status": false,
-				"Error":  err,
+				"Error":  result.Error,
 			})
-			return
 		}
 
 		//check if inputed password is match with password from database
 		if !service.CheckPasswordHash(reqBody.Password, user.Password) {
-			c.PureJSON(401, gin.H{
+			c.PureJSON(http.StatusUnauthorized, gin.H{
 				"Status":  false,
 				"Message": "Invalid Password",
 			})
 			return
 		}
 
-		token, err := service.JwtTokenGenerator(appDependencies, "iduser")
+		token, err := service.JwtTokenGenerator(appDependencies, user.ID)
 		if err != nil {
-			c.PureJSON(400, gin.H{
+			c.PureJSON(http.StatusBadRequest, gin.H{
 				"Result": "Failed Generate Token",
 			})
 			return
 		}
-		c.PureJSON(200, gin.H{
+		c.PureJSON(http.StatusOK, gin.H{
 			"token": token,
 		})
 	}
