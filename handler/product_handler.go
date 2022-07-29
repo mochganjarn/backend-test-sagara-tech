@@ -66,17 +66,21 @@ func CreateProduct(appDependencies *service.ClientConnection) gin.HandlerFunc {
 			return
 		}
 
-		if err := model.CreateData(&product, appDependencies.DbClient); err != nil {
-			c.PureJSON(http.StatusBadRequest, gin.H{
-				"Status": false,
-				"Error":  err,
-			})
-		} else {
+		dbconn := appDependencies.DbClient.DbConnection
+		dbconn.AutoMigrate(&product)
+		result := dbconn.Create(&product)
+
+		if result.RowsAffected > 0 {
 			c.PureJSON(http.StatusCreated, gin.H{
 				"Data":   product,
 				"Status": true,
 				"Result": "Successfully created data",
 				"Size":   file.Size,
+			})
+		} else {
+			c.PureJSON(http.StatusBadRequest, gin.H{
+				"Status": false,
+				"Error":  result.Error,
 			})
 		}
 	}

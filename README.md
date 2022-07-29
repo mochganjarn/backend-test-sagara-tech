@@ -24,3 +24,23 @@ make install
 ```
 make run
 ```
+
+###### Instalasi Menggunakan Docker
+
+1. Pull postgres image terlebih dahulu, bisa skip step ini kalau sudah
+```
+docker pull postgres
+```
+2. Build docker image project ini
+```
+sudo docker build -t backend-test-sagara-tech:latest .
+```
+3. Rename .env.example menjadi .env
+```
+cp .env.example .env
+```
+4. Kemudian isilah variable env sesuai dengan environment kamu
+5. Jalankan aplikasi dan database dengan docker compose
+```
+docker-compose up
+```

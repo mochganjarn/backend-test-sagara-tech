@@ -30,8 +30,9 @@ func Login(appDependencies *service.ClientConnection) gin.HandlerFunc {
 		if result.RowsAffected == 0 {
 			c.PureJSON(http.StatusNotFound, gin.H{
 				"Status": false,
-				"Error":  result.Error,
+				"Error":  "username not found",
 			})
+			return
 		}
 
 		//check if inputed password is match with password from database

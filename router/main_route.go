@@ -10,5 +10,9 @@ func Init(dependencies *service.ClientConnection) {
 	api := r.Group("/api")
 	authRoute(api, dependencies)
 	productRoute(api, dependencies)
-	r.Run()
+	httpPort := dependencies.AppPort
+	if httpPort == "" {
+		httpPort = "8080"
+	}
+	r.Run(":" + httpPort)
 }

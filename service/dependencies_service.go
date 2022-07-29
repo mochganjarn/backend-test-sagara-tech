@@ -3,14 +3,13 @@ package service
 import (
 	"github.com/mochganjarn/go-template-project/config"
 	"github.com/mochganjarn/go-template-project/external/db"
-	"github.com/mochganjarn/go-template-project/external/gcs"
 	jwtclient "github.com/mochganjarn/go-template-project/external/jwt_client"
 )
 
 //For Collecting Client Conection
 type ClientConnection struct {
-	DbClient  *db.Client
-	GcsClient *gcs.Client
+	DbClient *db.Client
+	AppPort  string
 	jwtclient.JwtSecret
 }
 
@@ -25,9 +24,8 @@ func InstantiateDependencies(appConfig *config.Config) *ClientConnection {
 				DBPassword: appConfig.DBPassword,
 				DBPort:     appConfig.DBPort,
 			}),
-		// // init connection to gcs
-		// GcsClient: gcs.InitGcsClient(),
-
+		// init app port
+		AppPort: appConfig.Port,
 		// save jwt secret to struct
 		JwtSecret: jwtclient.JwtSecret{
 			MySecret: appConfig.JWTSecret,

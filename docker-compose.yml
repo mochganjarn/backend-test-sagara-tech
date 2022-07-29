@@ -1,0 +1,43 @@
+version: '3.3'
+
+services:
+  backend-test-sagara-tech:
+    depends_on: 
+      - postgres
+    image: backend-test-sagara-tech:latest
+    container_name: rest-server
+    hostname: rest-server
+    networks:
+      - mynet
+    ports:
+      - 8080:8080
+    environment:
+      - APP_ENV=${APP_ENV}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_HOST=${DB_HOST}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_PORT=${DB_PORT}
+      - JWT_SECRET=${JWT_SECRET}
+    deploy:
+      restart_policy:
+        condition: on-failure
+  postgres:
+    image: postgres:latest
+    container_name: postgres-database
+    hostname: db
+    networks:
+      - mynet
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - postgres:/var/lib/postgresql/data
+
+volumes:
+  postgres:
+
+networks:
+  mynet:
+    driver: bridge
