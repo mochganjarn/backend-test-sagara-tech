@@ -13,7 +13,7 @@ RUN go mod download
 
 COPY . ./
 
-RUN go build -o /backend-test-sagara-tech
+RUN go build -o /inventory-server
 
 ##
 ## Deploy
@@ -22,10 +22,10 @@ FROM gcr.io/distroless/base-debian10
 
 WORKDIR /
 
-COPY --from=build /backend-test-sagara-tech /backend-test-sagara-tech
+COPY --from=build /inventory-server /inventory-server
 
 EXPOSE 8080
 
 USER nonroot:nonroot
 
-ENTRYPOINT ["/backend-test-sagara-tech"]
+ENTRYPOINT ["/inventory-server"]

@@ -1,10 +1,10 @@
 version: '3.3'
 
 services:
-  backend-test-sagara-tech:
+  inventory-server:
     depends_on: 
       - postgres
-    image: backend-test-sagara-tech:latest
+    image: inventory-server:latest
     container_name: rest-server
     hostname: rest-server
     networks:

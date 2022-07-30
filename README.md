@@ -33,7 +33,7 @@ docker pull postgres
 ```
 2. Build docker image project ini
 ```
-sudo docker build -t backend-test-sagara-tech:latest .
+sudo docker build -t inventory-server:latest .
 ```
 3. Rename .env.example menjadi .env
 ```
